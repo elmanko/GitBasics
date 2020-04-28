@@ -154,7 +154,7 @@ vamos a agragarle por ejemplo que use por defecto vi como mi editor y que utilic
 podemos volver a listar usando git las configuraciones globales
 	elmanko@Ruth:~/Projects/GitBasics$ git config --global --list
 	user.name=elmanko
-	user.email=elmankisimo@gmail.com
+	user.email=XXXXXXXXXX@xxxxx.xx
 	core.editor=vi
 	help.autocorrect=1
 
@@ -162,7 +162,7 @@ o podemos abrir el archivo con cat
 	elmanko@Ruth:~/Projects/GitBasics$ cat ~/.gitconfig 
 	[user]
 		name = elmanko
-		email = elmankisimo@gmail.com
+		email = XXXXXXXXXX@xxxxx.xx
 	[core]
 		editor = vi
 	[help]
@@ -192,7 +192,7 @@ puedes configurar otras opciones como el color, o prevenir broncas con caractere
 
 	elmanko@Ruth:~/Projects/GitBasics$ git config --global --list
 	user.name=elmanko
-	user.email=elmankisimo@gmail.com
+	user.email=XXXXXXXXXX@xxxxx.xx
 	core.editor=vi
 	core.autocrlf=true
 	help.autocorrect=1
@@ -202,7 +202,7 @@ y en su archivito
 	elmanko@Ruth:~/Projects/GitBasics$ cat ~/.gitconfig 
 	[user]
 		name = elmanko
-		email = elmankisimo@gmail.com
+		email = XXXXXXXXXX@xxxxx.xx
 	[core]
 		editor = vi
 		autocrlf = input
@@ -308,13 +308,13 @@ agregar archivos
 			
 			elmanko@Ruth:~/Projects/GitBasics$ git log
 			commit aa258c30f0f7fd9c499917973afe33e0fb09b549
-			Author: elmanko <elmankisimo@gmail.com>
+			Author: elmanko <XXXXXXXXXX@xxxxx.xx>
 			Date:   Tue Apr 28 12:56:21 2020 +0530
 
 			    nuevos ejemplos de commits y add
 
 			commit 26d76211774ae58d6beda162d89299c82709dabc
-			Author: elmanko <elmankisimo@gmail.com>
+			Author: elmanko <XXXXXXXXXX@xxxxx.xx>
 			Date:   Tue Apr 28 12:48:23 2020 +0530
 
 			    Agregue el git.txt
@@ -459,19 +459,19 @@ agregar archivos
 
 	 		elmanko@Ruth:~/Projects/GitBasics$ git log
 	 		commit 2728406cf3964900bea96f369aaf1d56291c78a8
-	 		Author: elmanko <elmankisimo@gmail.com>
+	 		Author: elmanko <XXXXXXXXXX@xxxxx.xx>
 	 		Date:   Tue Apr 28 13:13:26 2020 +0530
 
 	 		    meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
 
 	 		commit aa258c30f0f7fd9c499917973afe33e0fb09b549
-	 		Author: elmanko <elmankisimo@gmail.com>
+	 		Author: elmanko <XXXXXXXXXX@xxxxx.xx>
 	 		Date:   Tue Apr 28 12:56:21 2020 +0530
 
 	 		    nuevos ejemplos de commits y add
 
 	 		commit 26d76211774ae58d6beda162d89299c82709dabc
-	 		Author: elmanko <elmankisimo@gmail.com>
+	 		Author: elmanko <XXXXXXXXXX@xxxxx.xx>
 	 		Date:   Tue Apr 28 12:48:23 2020 +0530
 
 	 		    Agregue el git.txt
@@ -490,6 +490,56 @@ agregar archivos
     			modified:   git.txt
 
     		no changes added to commit (use "git add" and/or "git commit -a")
+
+	Ahora vamos a individualemte commitear cada cambio:
+
+			elmanko@Ruth:~/Projects/GitBasics$ git add archivo1.txt 
+			elmanko@Ruth:~/Projects/GitBasics$ git commit -m 'le puse un Hola mundo a archivo1.txt'
+			[master 33f2dfd] le puse un Hola mundo a archivo1.txt
+			 1 file changed, 1 insertion(+)
+
+	 Este es el ejemplo perfecto de 1) estar bien meco para escribir, y 2) el autocorrect jalando como debe:
+
+			elmanko@Ruth:~/Projects/GitBasics$ git dd git.txt
+			WARNING: You called a Git command named 'dd', which does not exist.
+			Continuing under the assumption that you meant 'add'
+			in 0.1 seconds automatically...
+			elmanko@Ruth:~/Projects/GitBasics$ git commit -m 'ejemplo de git add'
+			[master 5fcf802] ejemplo de git add
+			 1 file changed, 44 insertions(+)
+
+	 Y volvemos a confirmarlo checando el log:
+
+	 		elmanko@Ruth:~/Projects/GitBasics$ git log
+	 		commit 5fcf802be7ab2d57626d4f050bcd88c4b7e37e37
+	 		Author: elmanko <XXXXXXXXXX@xxxxx.xx>
+	 		Date:   Tue Apr 28 13:24:00 2020 +0530
+
+	 		    ejemplo de git add
+
+	 		commit 33f2dfda1acec15a551d6bc2a348e0f2706b7a35
+	 		Author: elmanko <XXXXXXXXXX@xxxxx.xx>
+	 		Date:   Tue Apr 28 13:23:10 2020 +0530
+
+	 		    le puse un Hola mundo a archivo1.txt
+
+	 		commit 2728406cf3964900bea96f369aaf1d56291c78a8
+	 		Author: elmanko <XXXXXXXXXX@xxxxx.xx>
+	 		Date:   Tue Apr 28 13:13:26 2020 +0530
+
+	 		    meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
+
+	 		commit aa258c30f0f7fd9c499917973afe33e0fb09b549
+	 		Author: elmanko <XXXXXXXXXX@xxxxx.xx>
+	 		Date:   Tue Apr 28 12:56:21 2020 +0530
+
+	 		    nuevos ejemplos de commits y add
+
+	 		commit 26d76211774ae58d6beda162d89299c82709dabc
+	 		Author: elmanko <XXXXXXXXXX@xxxxx.xx>
+	 		Date:   Tue Apr 28 12:48:23 2020 +0530
+
+	 		    Agregue el git.txt
 
 checar cambios
 
