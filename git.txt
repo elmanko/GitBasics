@@ -213,26 +213,93 @@ y en su archivito
 
 Crear un repo local
 	Voy a crear una repo local en el directorio en el que me encuentro:
-	elmanko@Ruth:~/Projects/GitBasics$ ls -lrta .
-	total 20
-	drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 11:46 ..
-	drwxrwxr-x 2 elmanko elmanko 4096 Apr 28 12:13 .
-	-rw-rw-r-- 1 elmanko elmanko 8276 Apr 28 12:32 git.txt
+		elmanko@Ruth:~/Projects/GitBasics$ ls -lrta .
+		total 20
+		drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 11:46 ..
+		drwxrwxr-x 2 elmanko elmanko 4096 Apr 28 12:13 .
+		-rw-rw-r-- 1 elmanko elmanko 8276 Apr 28 12:32 git.txt
 	
 	nomas tengo un archivo git.txt con literal ese archivo, para echar a jalar git se usa el git init:
 
-	elmanko@Ruth:~/Projects/GitBasics$ git init
-	Initialized empty Git repository in /home/elmanko/Projects/GitBasics/.git/
+		elmanko@Ruth:~/Projects/GitBasics$ git init
+		Initialized empty Git repository in /home/elmanko/Projects/GitBasics/.git/
 	
 	Ahora ya puede verse un directorio .git con el repo y su metadata:
-	elmanko@Ruth:~/Projects/GitBasics$ ls -lrta .
-	total 24
-	drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 11:46 ..
-	-rw-rw-r-- 1 elmanko elmanko 8276 Apr 28 12:32 git.txt
-	drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 12:41 .
-	drwxrwxr-x 7 elmanko elmanko 4096 Apr 28 12:41 .git
+		elmanko@Ruth:~/Projects/GitBasics$ ls -lrta .
+		total 24
+		drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 11:46 ..
+		-rw-rw-r-- 1 elmanko elmanko 8276 Apr 28 12:32 git.txt
+		drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 12:41 .
+		drwxrwxr-x 7 elmanko elmanko 4096 Apr 28 12:41 .git
 
 agregar archivos
+	Si checo el status nos va a decir que hay ahi un archivo nuevo
+
+		elmanko@Ruth:~/Projects/GitBasics$ git status
+		On branch master
+
+		Initial commit
+
+		Untracked files:
+		  (use "git add <file>..." to include in what will be committed)
+
+			git.txt
+
+		nothing added to commit but untracked files present (use "git add" to track)
+
+	Usamos el comando add para agregar(duh) el archivo y checamos el status
+
+		elmanko@Ruth:~/Projects/GitBasics$ git add git.txt 
+		elmanko@Ruth:~/Projects/GitBasics$ git status
+		On branch master
+
+		Initial commit
+
+		Changes to be committed:
+		  (use "git rm --cached <file>..." to unstage)
+
+			new file:   git.txt
+
+	Ya agregado podemos darle su "commit" lo cual lo "guarda" en esa version en especifico, el comando va a abrir el editor que configuramos de inicio para darle un mesaje descriptivo del cambio que hicimos en el repositorio
+
+		elmanko@Ruth:~/Projects/GitBasics$ git commit
+		[master (root-commit) 26d7621] Agregue el git.txt
+		 1 file changed, 243 insertions(+)
+		 create mode 100644 git.txt
+	Notese que mi comentario pu;etas fue : "Agregue el git.txt", y este "cambio" ya se puede ver reflejado en el log del repo:
+		elmanko@Ruth:~/Projects/GitBasics$ git log
+		commit 26d76211774ae58d6beda162d89299c82709dabc
+		Author: elmanko <XXXXXXXXXX@xxxxx.xx>
+		Date:   Tue Apr 28 12:48:23 2020 +0530
+
+		    Agregue el git.txt
+	git idetifica los cambios con un sha en este caso: 26d76211774ae58d6beda162d89299c82709dabc
+	los cuales se pueden abreviar usando solo una parte, pero ahorita vemos.
+
+	como estoy literal usando el mismo file para escribir este post, ya no es el mismo que guardamos por lo tanto fue modificado:
+
+		elmanko@Ruth:~/Projects/GitBasics$ git status
+		On branch master
+		Changes not staged for commit:
+		  (use "git add <file>..." to update what will be committed)
+		  (use "git checkout -- <file>..." to discard changes in working directory)
+
+			modified:   git.txt
+
+		no changes added to commit (use "git add" and/or "git commit -a")
+
+	Necesitamos agregar el archivo de nuevo, lo podemos hacer con el comando add y verificar con status
+
+			elmanko@Ruth:~/Projects/GitBasics$ git add -u
+
+			elmanko@Ruth:~/Projects/GitBasics$ git status
+			On branch master
+			Changes to be committed:
+			  (use "git reset HEAD <file>..." to unstage)
+
+				modified:   git.txt
+
+
 
 checar cambios
 
