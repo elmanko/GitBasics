@@ -299,7 +299,153 @@ agregar archivos
 
 				modified:   git.txt
 
+	ya agregado toca darle su commit, checa como ahora usando -m le paso el mensaje en el mismo comando
+			elmanko@Ruth:~/Projects/GitBasics$ git commit -m 'nuevos ejemplos de commits y add'
+			[master aa258c3] nuevos ejemplos de commits y add
+			 1 file changed, 80 insertions(+), 13 deletions(-)
 
+	y verificamos el log:
+			
+			elmanko@Ruth:~/Projects/GitBasics$ git log
+			commit aa258c30f0f7fd9c499917973afe33e0fb09b549
+			Author: elmanko <elmankisimo@gmail.com>
+			Date:   Tue Apr 28 12:56:21 2020 +0530
+
+			    nuevos ejemplos de commits y add
+
+			commit 26d76211774ae58d6beda162d89299c82709dabc
+			Author: elmanko <elmankisimo@gmail.com>
+			Date:   Tue Apr 28 12:48:23 2020 +0530
+
+			    Agregue el git.txt
+
+    ahi ya se puede ver el historial de cambios con sus shas y todo el pedo, tipo pila, la entrada de arriba es la ultima y va cronologicamente para abajo.
+
+    como dije antes no se necesita el chorizote de sha completo(aunque quisieran), podemos abreviar, en seguida esta un ejemplo de como checar las diferencias entre las dos versiones del archivo, lo tuve que cortar un tramo:
+    	elmanko@Ruth:~/Projects/GitBasics$ git diff 26d7621..aa258c30
+		diff --git a/git.txt b/git.txt
+		index 28e96be..881a592 100644
+		--- a/git.txt
+		+++ b/git.txt
+		@@ -213,26 +213,93 @@ y en su archivito
+		 
+		 Crear un repo local
+		        Voy a crear una repo local en el directorio en el que me encuentro:
+		-       elmanko@Ruth:~/Projects/GitBasics$ ls -lrta .
+		-       total 20
+		-       drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 11:46 ..
+		-       drwxrwxr-x 2 elmanko elmanko 4096 Apr 28 12:13 .
+		-       -rw-rw-r-- 1 elmanko elmanko 8276 Apr 28 12:32 git.txt
+		+               elmanko@Ruth:~/Projects/GitBasics$ ls -lrta .
+		+               total 20
+		+               drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 11:46 ..
+		+               drwxrwxr-x 2 elmanko elmanko 4096 Apr 28 12:13 .
+		+               -rw-rw-r-- 1 elmanko elmanko 8276 Apr 28 12:32 git.txt
+		        
+		        nomas tengo un archivo git.txt con literal ese archivo, para echar a jalar git se usa el git init:
+		 
+		-       elmanko@Ruth:~/Projects/GitBasics$ git init
+		-       Initialized empty Git repository in /home/elmanko/Projects/GitBasics/.git/
+		+               elmanko@Ruth:~/Projects/GitBasics$ git init
+		+               Initialized empty Git repository in /home/elmanko/Projects/GitBasics/.git/
+		        
+		        Ahora ya puede verse un directorio .git con el repo y su metadata:
+		-       elmanko@Ruth:~/Projects/GitBasics$ ls -lrta .
+		-       total 24
+		-       drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 11:46 ..
+		-       -rw-rw-r-- 1 elmanko elmanko 8276 Apr 28 12:32 git.txt
+		-       drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 12:41 .
+		-       drwxrwxr-x 7 elmanko elmanko 4096 Apr 28 12:41 .git
+		+               elmanko@Ruth:~/Projects/GitBasics$ ls -lrta .
+		+               total 24
+		+               drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 11:46 ..
+		+               -rw-rw-r-- 1 elmanko elmanko 8276 Apr 28 12:32 git.txt
+		+               drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 12:41 .
+		+               drwxrwxr-x 7 elmanko elmanko 4096 Apr 28 12:41 .git
+		 
+		 agregar archivos
+		+       Si checo el status nos va a decir que hay ahi un archivo nuevo
+		+
+		+               elmanko@Ruth:~/Projects/GitBasics$ git status
+		+               On branch master
+		+
+		+               Initial commit
+		+
+		+               Untracked files:
+		+                 (use "git add <file>..." to include in what will be committed)
+		+
+		+                       git.txt
+		+
+		+               nothing added to commit but untracked files present (use "git add" to track)
+		+
+		+       Usamos el comando add para agregar(duh) el archivo y checamos el status
+		+
+		+               elmanko@Ruth:~/Projects/GitBasics$ git add git.txt 
+		+               elmanko@Ruth:~/Projects/GitBasics$ git status
+		+               On branch master
+		+
+	git entiende el ultimo cambio com HEAD, entonces podemos obtener el mismo resultado con los siguientes comandos:
+
+			git diff HEAD~1..HEAD
+		  	
+  	en el caso anterior HEAD~1 seria como agarrar el cambio anterior al ultimo, en el siguiente caso si no se especifica HEAD al final, git simplemente asume que es HEAD
+		  	
+		  	git diff HEAD~1..
+
+	Vamos a agregar otros archivos pa agarrar cura:
+
+			elmanko@Ruth:~/Projects/GitBasics$ touch archivo1.txt archivo2.txt
+	
+	Y checamos el status
+	
+			elmanko@Ruth:~/Projects/GitBasics$ git status
+			On branch master
+			Changes not staged for commit:
+			  (use "git add <file>..." to update what will be committed)
+			  (use "git checkout -- <file>..." to discard changes in working directory)
+
+				modified:   git.txt
+
+			Untracked files:
+			  (use "git add <file>..." to include in what will be committed)
+
+				archivo1.txt
+				archivo2.txt
+
+			no changes added to commit (use "git add" and/or "git commit -a")
+
+	Si intentamos de nuevo el add -u que jalo antes vamos a tener el siguiente resultado:
+
+			elmanko@Ruth:~/Projects/GitBasics$ git add -u
+
+	Checa el dato de que nomas acepto los cambios en git.txt, pero no en los archivos nuevos, precisamente por que solo jala en archivos existentes no para agregar nuevos:
+
+			elmanko@Ruth:~/Projects/GitBasics$ git status
+			On branch master
+			Changes to be committed:
+			  (use "git reset HEAD <file>..." to unstage)
+
+				modified:   git.txt
+
+			Untracked files:
+			  (use "git add <file>..." to include in what will be committed)
+
+				archivo1.txt
+				archivo2.txt
+	Podemos agregar los nuevos archivos con add -A
+
+			elmanko@Ruth:~/Projects/GitBasics$ git add -A
+
+	Nomas que al tiro por que va a agregar todo, archivos nuevos y modificados tambien, ahora asi luce el status:
+
+			elmanko@Ruth:~/Projects/GitBasics$ git status
+			On branch master
+			Changes to be committed:
+			  (use "git reset HEAD <file>..." to unstage)
+
+				new file:   archivo1.txt
+				new file:   archivo2.txt
+				modified:   git.txt
 
 checar cambios
 
