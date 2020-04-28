@@ -447,6 +447,50 @@ agregar archivos
 				new file:   archivo2.txt
 				modified:   git.txt
 
+	Y ahora si se puede hacer el commit de los archivos nuevos junto con el existente:
+
+			elmanko@Ruth:~/Projects/GitBasics$ git commit -m "meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt"
+			[master 2728406] meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
+			 3 files changed, 146 insertions(+)
+			 create mode 100644 archivo1.txt
+			 create mode 100644 archivo2.txt
+
+	 Podemos ver el log con todos los commits hechos hasta ahora y podriamos checar las diferencias de nuevo
+
+	 		elmanko@Ruth:~/Projects/GitBasics$ git log
+	 		commit 2728406cf3964900bea96f369aaf1d56291c78a8
+	 		Author: elmanko <elmankisimo@gmail.com>
+	 		Date:   Tue Apr 28 13:13:26 2020 +0530
+
+	 		    meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
+
+	 		commit aa258c30f0f7fd9c499917973afe33e0fb09b549
+	 		Author: elmanko <elmankisimo@gmail.com>
+	 		Date:   Tue Apr 28 12:56:21 2020 +0530
+
+	 		    nuevos ejemplos de commits y add
+
+	 		commit 26d76211774ae58d6beda162d89299c82709dabc
+	 		Author: elmanko <elmankisimo@gmail.com>
+	 		Date:   Tue Apr 28 12:48:23 2020 +0530
+
+	 		    Agregue el git.txt
+
+    git tiene un area de "staging" donde los cambios no han sido "commiteados" aun y podemos tratar cada uno de manera individual en lugar de agregar todos juntos con el mismo mensaje, checa:
+
+    YA modifique archivo1.txt y git.txt, entonces git status nos marca que estan modificados:
+
+    		elmanko@Ruth:~/Projects/GitBasics$ git status
+    		On branch master
+    		Changes not staged for commit:
+    		  (use "git add <file>..." to update what will be committed)
+    		  (use "git checkout -- <file>..." to discard changes in working directory)
+
+    			modified:   archivo1.txt
+    			modified:   git.txt
+
+    		no changes added to commit (use "git add" and/or "git commit -a")
+
 checar cambios
 
 ver historial
