@@ -1,0 +1,243 @@
+git
+Introduccion para principiantes.
+
+por que necesitas control de versiones?
+que es DVCS? Distributed Version Control System
+git fue creado por Linus Torvald en el 2005 para tener un DVCS para el kernel de linux, jala en mac windows y linux
+dise;ado para velocidad, simplicidad, distribuido, branc/merge, escalable
+
+
+sudo apt-get install git
+
+checar la version:
+elmanko@Ruth:~/Projects/GitBasics$ git version
+git version 2.7.4
+
+configuracion
+	system
+		git config --system
+			elmanko@Ruth:~/Projects/GitBasics$ git config --system
+			usage: git config [<options>]
+
+			Config file location
+			    --global              use global config file
+			    --system              use system config file
+			    --local               use repository config file
+			    -f, --file <file>     use given config file
+			    --blob <blob-id>      read config from given blob object
+
+			Action
+			    --get                 get value: name [value-regex]
+			    --get-all             get all values: key [value-regex]
+			    --get-regexp          get values for regexp: name-regex [value-regex]
+			    --get-urlmatch        get value specific for the URL: section[.var] URL
+			    --replace-all         replace all matching variables: name value [value_regex]
+			    --add                 add a new variable: name value
+			    --unset               remove a variable: name [value-regex]
+			    --unset-all           remove all matches: name [value-regex]
+			    --rename-section      rename section: old-name new-name
+			    --remove-section      remove a section: name
+			    -l, --list            list all
+			    -e, --edit            open an editor
+			    --get-color           find the color configured: slot [default]
+			    --get-colorbool       find the color setting: slot [stdout-is-tty]
+
+			Type
+			    --bool                value is "true" or "false"
+			    --int                 value is decimal number
+			    --bool-or-int         value is --bool or --int
+			    --path                value is a path (file or directory name)
+
+			Other
+			    -z, --null            terminate values with NUL byte
+			    --name-only           show variable names only
+			    --includes            respect include directives on lookup
+
+	user
+		git config --global
+			elmanko@Ruth:~/Projects/GitBasics$ git config --global
+			usage: git config [<options>]
+
+			Config file location
+			    --global              use global config file
+			    --system              use system config file
+			    --local               use repository config file
+			    -f, --file <file>     use given config file
+			    --blob <blob-id>      read config from given blob object
+
+			Action
+			    --get                 get value: name [value-regex]
+			    --get-all             get all values: key [value-regex]
+			    --get-regexp          get values for regexp: name-regex [value-regex]
+			    --get-urlmatch        get value specific for the URL: section[.var] URL
+			    --replace-all         replace all matching variables: name value [value_regex]
+			    --add                 add a new variable: name value
+			    --unset               remove a variable: name [value-regex]
+			    --unset-all           remove all matches: name [value-regex]
+			    --rename-section      rename section: old-name new-name
+			    --remove-section      remove a section: name
+			    -l, --list            list all
+			    -e, --edit            open an editor
+			    --get-color           find the color configured: slot [default]
+			    --get-colorbool       find the color setting: slot [stdout-is-tty]
+
+			Type
+			    --bool                value is "true" or "false"
+			    --int                 value is decimal number
+			    --bool-or-int         value is --bool or --int
+			    --path                value is a path (file or directory name)
+
+			Other
+			    -z, --null            terminate values with NUL byte
+			    --name-only           show variable names only
+			    --includes            respect include directives on lookup
+  	repository
+  		git config
+  			elmanko@Ruth:~/Projects/GitBasics$ git config
+			usage: git config [<options>]
+
+			Config file location
+			    --global              use global config file
+			    --system              use system config file
+			    --local               use repository config file
+			    -f, --file <file>     use given config file
+			    --blob <blob-id>      read config from given blob object
+
+			Action
+			    --get                 get value: name [value-regex]
+			    --get-all             get all values: key [value-regex]
+			    --get-regexp          get values for regexp: name-regex [value-regex]
+			    --get-urlmatch        get value specific for the URL: section[.var] URL
+			    --replace-all         replace all matching variables: name value [value_regex]
+			    --add                 add a new variable: name value
+			    --unset               remove a variable: name [value-regex]
+			    --unset-all           remove all matches: name [value-regex]
+			    --rename-section      rename section: old-name new-name
+			    --remove-section      remove a section: name
+			    -l, --list            list all
+			    -e, --edit            open an editor
+			    --get-color           find the color configured: slot [default]
+			    --get-colorbool       find the color setting: slot [stdout-is-tty]
+
+			Type
+			    --bool                value is "true" or "false"
+			    --int                 value is decimal number
+			    --bool-or-int         value is --bool or --int
+			    --path                value is a path (file or directory name)
+
+			Other
+			    -z, --null            terminate values with NUL byte
+			    --name-only           show variable names only
+			    --includes            respect include directives on lookup
+
+
+
+
+checar la configuracion actual
+	elmanko@Ruth:~/Projects/GitBasics$ cat ~/.gitconfig 
+	[user]
+		name = elmanko
+		email = XXXXXXXXXX@xxxxx.xx
+
+el mismo resultado se obtiene al correr
+	elmanko@Ruth:~/Projects/GitBasics$ git config --global --list
+	user.name=elmanko
+	user.email=XXXXXXXXXX@xxxxx.xx
+
+
+
+vamos a agragarle por ejemplo que use por defecto vi como mi editor y que utilice el autocorrector para cuando se te va una letra
+
+	elmanko@Ruth:~/Projects/GitBasics$ git config --global core.editor vi
+	elmanko@Ruth:~/Projects/GitBasics$ git config --global help.autocorrect 1
+
+podemos volver a listar usando git las configuraciones globales
+	elmanko@Ruth:~/Projects/GitBasics$ git config --global --list
+	user.name=elmanko
+	user.email=elmankisimo@gmail.com
+	core.editor=vi
+	help.autocorrect=1
+
+o podemos abrir el archivo con cat 
+	elmanko@Ruth:~/Projects/GitBasics$ cat ~/.gitconfig 
+	[user]
+		name = elmanko
+		email = elmankisimo@gmail.com
+	[core]
+		editor = vi
+	[help]
+		autocorrect = 1
+ 
+ el autocorrect esta suave por que utiliza logica difusa por si estas bien meco y no escribes bien, checa este ejemplo:
+ 	elmanko@Ruth:~/Projects/GitBasics$ git statsr
+	git: 'statsr' is not a git command. See 'git --help'.
+
+	Did you mean this?
+		status
+
+ya con su autocorrector activado, ve nomas el cambio:
+	elmanko@Ruth:~/Projects/GitBasics$ git statsr
+	WARNING: You called a Git command named 'statsr', which does not exist.
+	Continuing under the assumption that you meant 'status'
+	in 0.1 seconds automatically...
+	fatal: Not a git repository (or any of the parent directories): .git
+
+ojo no tengo ningun repo jalando aun en ese directorio entonces es el output que esperamos:
+	elmanko@Ruth:~/Projects/GitBasics$ git status
+	fatal: Not a git repository (or any of the parent directories): .git
+puedes configurar otras opciones como el color, o prevenir broncas con caracteres marcianos si otra raza esta usando Windows al editar los archivos (CRLF) git puede hacer esa conversion automaticamente.
+
+	elmanko@Ruth:~/Projects/GitBasics$ git config --global color.ui auto
+	elmanko@Ruth:~/Projects/GitBasics$ git config --global core.autocrlf true
+
+	elmanko@Ruth:~/Projects/GitBasics$ git config --global --list
+	user.name=elmanko
+	user.email=elmankisimo@gmail.com
+	core.editor=vi
+	core.autocrlf=true
+	help.autocorrect=1
+	color.ui=auto
+
+y en su archivito
+	elmanko@Ruth:~/Projects/GitBasics$ cat ~/.gitconfig 
+	[user]
+		name = elmanko
+		email = elmankisimo@gmail.com
+	[core]
+		editor = vi
+		autocrlf = input
+	[help]
+		autocorrect = 1
+	[color]
+		ui = auto
+
+Crear un repo local
+	Voy a crear una repo local en el directorio en el que me encuentro:
+	elmanko@Ruth:~/Projects/GitBasics$ ls -lrta .
+	total 20
+	drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 11:46 ..
+	drwxrwxr-x 2 elmanko elmanko 4096 Apr 28 12:13 .
+	-rw-rw-r-- 1 elmanko elmanko 8276 Apr 28 12:32 git.txt
+	
+	nomas tengo un archivo git.txt con literal ese archivo, para echar a jalar git se usa el git init:
+
+	elmanko@Ruth:~/Projects/GitBasics$ git init
+	Initialized empty Git repository in /home/elmanko/Projects/GitBasics/.git/
+	
+	Ahora ya puede verse un directorio .git con el repo y su metadata:
+	elmanko@Ruth:~/Projects/GitBasics$ ls -lrta .
+	total 24
+	drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 11:46 ..
+	-rw-rw-r-- 1 elmanko elmanko 8276 Apr 28 12:32 git.txt
+	drwxrwxr-x 3 elmanko elmanko 4096 Apr 28 12:41 .
+	drwxrwxr-x 7 elmanko elmanko 4096 Apr 28 12:41 .git
+
+agregar archivos
+
+checar cambios
+
+ver historial
+
+ver diferencias
+
+
