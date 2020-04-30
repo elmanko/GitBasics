@@ -783,7 +783,8 @@ agregar archivos
 			-rw-rw-r-- 1 elmanko elmanko 28259 Apr 30 12:01 git.txt
 			-rw-rw-r-- 1 elmanko elmanko    42 Apr 30 12:05 archivo2.txt
 
-	OTras ocasiones para no estar haciendo clean todo el tiempo simplemente podemos decirle a git que ignore ciertos archivos (como a tu ex) o ciertas extensiones de archivos en el directorio del repo, git tiene un archivo oculto llamado .gitignore, el cual podemos crear y actualizar con 
+	OTras ocasiones para no estar haciendo clean todo el tiempo simplemente podemos decirle a git que ignore ciertos archivos (como a tu ex) o ciertas extensiones de archivos en el directorio del repo, git tiene un archivo oculto llamado .gitignore, el cual podemos crear y actualizar con un archivo en especifico o una extension de archivo como *.txt o un directorio, etcetera:
+	
 checar cambios
 
 ver historial
