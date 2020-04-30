@@ -668,6 +668,75 @@ agregar archivos
 	 		no changes added to commit (use "git add" and/or "git commit -a")
 
 
+	 Ahora, supongamos que se me fueron las cabras en multiples archivos y ya hice lo que coloquialmente diriamos: un cagadero.
+
+	Le agregamos unas lineas al archivo1.txt:
+
+			elmanko@Ruth:~/Projects/GitBasics$ vi archivo1.txt 
+
+	Luego checamos el status
+
+			elmanko@Ruth:~/Projects/GitBasics$ git status
+			On branch master
+			Changes not staged for commit:
+			  (use "git add <file>..." to update what will be committed)
+			  (use "git checkout -- <file>..." to discard changes in working directory)
+
+				modified:   archivo1.txt
+				modified:   git.txt
+
+			no changes added to commit (use "git add" and/or "git commit -a")
+	Ahi me di cuenta que git.txt tenia cambios y no queria borrarlos para el siguiente ejemplo asi que me avente un commit en corto:
+
+			elmanko@Ruth:~/Projects/GitBasics$ git commit git.txt -m 'pa que no se borre lo importante'
+			[master ba63134] pa que no se borre lo importante
+			 1 file changed, 128 insertions(+), 1 deletion(-)
+		
+			elmanko@Ruth:~/Projects/GitBasics$ git status
+			On branch master
+			Changes not staged for commit:
+			  (use "git add <file>..." to update what will be committed)
+			  (use "git checkout -- <file>..." to discard changes in working directory)
+
+				modified:   archivo1.txt
+
+			no changes added to commit (use "git add" and/or "git commit -a")
+	Ahora si, de pura loquera vamos a borrar el archivo2.txt:
+
+			elmanko@Ruth:~/Projects/GitBasics$ rm archivo2.txt 
+		
+	Checamos el status y ahi sale que hay un archivo con cambios y otro borrado:
+
+			elmanko@Ruth:~/Projects/GitBasics$ git status
+			On branch master
+			Changes not staged for commit:
+			  (use "git add/rm <file>..." to update what will be committed)
+			  (use "git checkout -- <file>..." to discard changes in working directory)
+
+				modified:   archivo1.txt
+				deleted:    archivo2.txt
+
+			no changes added to commit (use "git add" and/or "git commit -a")
+	
+	Y ahi nos damos cuenta que la cajeteamos y queremos echarle un ctrl+z pa; deshacer la ultima accion(en cuanto a commits en el repo), en ese caso el siguiente comando es tu amigo:
+
+			elmanko@Ruth:~/Projects/GitBasics$ git reset --hard
+			HEAD is now at ba63134 pa que no se borre lo importante
+	
+	Checamos el status y los archivos y ya esta todo al centavo antes de que hicieras tus mequeces
+
+			elmanko@Ruth:~/Projects/GitBasics$ git status
+			On branch master
+			nothing to commit, working directory clean
+
+			elmanko@Ruth:~/Projects/GitBasics$ ls -lrt
+			total 36
+			-rw-rw-r-- 1 elmanko elmanko 25620 Apr 28 16:35 git.txt
+			-rw-rw-r-- 1 elmanko elmanko    24 Apr 30 11:50 archivo2.txt
+			-rw-rw-r-- 1 elmanko elmanko    12 Apr 30 11:50 archivo1.txt
+
+
+
 checar cambios
 
 ver historial
