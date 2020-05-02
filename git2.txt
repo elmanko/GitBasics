@@ -1,0 +1,368 @@
+experimento de pushear un repo local a github
+
+tengo:
+
+un directory con unos files
+	elmanko@Ruth:~/Projects/GitBasics$ lla
+	total 60
+	drwxrwxr-x 3 elmanko elmanko  4096 Apr 28 11:46 ..
+	-rw-rw-r-- 1 elmanko elmanko    42 Apr 30 12:05 archivo2.txt
+	-rw-rw-r-- 1 elmanko elmanko     9 Apr 30 12:41 .gitignore
+	drwxrwxr-x 3 elmanko elmanko  4096 Apr 30 12:41 .
+	drwxrwxr-x 8 elmanko elmanko  4096 May  1 12:10 .git
+	-rw-rw-r-- 1 elmanko elmanko 37403 May  1 12:51 git.txt
+
+creo un repo en github 
+
+cree un README.md y lo agregue al repo local:
+
+	elmanko@Ruth:~/Projects/GitBasics$ vi README.md
+	elmanko@Ruth:~/Projects/GitBasics$ git add README.md 
+	elmanko@Ruth:~/Projects/GitBasics$ git status
+	On branch master
+	Changes to be committed:
+	  (use "git reset HEAD <file>..." to unstage)
+
+		new file:   README.md
+
+	elmanko@Ruth:~/Projects/GitBasics$ git commit -m 'creando README.md'
+	[master 5030d91] creando README.md
+	 1 file changed, 3 insertions(+)
+	 create mode 100644 README.md
+	elmanko@Ruth:~/Projects/GitBasics$ git status
+	On branch master
+	nothing to commit, working directory clean
+
+PAre este momento tenemos el repo remoto en github y el local pero desconectados, para conectar el remoto con el local hacemos lo siguiente:
+
+checar la branch:
+	elmanko@Ruth:~/Projects/GitBasics$ git branch
+	* master
+
+verificar que no hay remotos:
+
+	elmanko@Ruth:~/Projects/GitBasics$ git remote -v
+
+agregar un origen remoto, aqui estoy usando SSH, el default es HTTPS, pero no quiero estar usando usuario y contrase;a cada push:
+
+	elmanko@Ruth:~/Projects/GitBasics$ git remote add origin git@github.com:elmanko/GitBasics.git
+
+verificamos el remoto y ya sale ahi:
+
+	elmanko@Ruth:~/Projects/GitBasics$ git remote -v
+	origin	git@github.com:elmanko/GitBasics.git (fetch)
+	origin	git@github.com:elmanko/GitBasics.git (push)
+
+ahora solo toca "pushear" nuestros archivos locales al remoto 
+
+	elmanko@Ruth:~/Projects/GitBasics$ git push
+	warning: push.default is unset; its implicit value has changed in
+	Git 2.0 from 'matching' to 'simple'. To squelch this message
+	and maintain the traditional behavior, use:
+
+	  git config --global push.default matching
+
+	To squelch this message and adopt the new behavior now, use:
+
+	  git config --global push.default simple
+
+	When push.default is set to 'matching', git will push local branches
+	to the remote branches that already exist with the same name.
+
+	Since Git 2.0, Git defaults to the more conservative 'simple'
+	behavior, which only pushes the current branch to the corresponding
+	remote branch that 'git pull' uses to update the current branch.
+
+	See 'git help config' and search for 'push.default' for further information.
+	(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+	'current' instead of 'simple' if you sometimes use older versions of Git)
+
+	fatal: The current branch master has no upstream branch.
+	To push the current branch and set the remote as upstream, use
+
+	    git push --set-upstream origin master
+
+No hagan la misma pendejada que yo de no ponerle a donde va a hacer el push:
+
+	elmanko@Ruth:~/Projects/GitBasics$ git push origin master
+	Counting objects: 57, done.
+	Delta compression using up to 4 threads.
+	Compressing objects: 100% (47/47), done.
+	Writing objects: 100% (57/57), 11.46 KiB | 0 bytes/s, done.
+	Total 57 (delta 15), reused 0 (delta 0)
+	remote: Resolving deltas: 100% (15/15), done.
+	To git@github.com:elmanko/GitBasics.git
+	 * [new branch]      master -> master
+
+su checadita:
+
+	elmanko@Ruth:~/Projects/GitBasics$ git push -u origin master
+	Branch master set up to track remote branch master from origin.
+	Everything up-to-date
+
+ya no hay diferencia entre la branch remota y la local, tampoco hay cambios locales para poner en stage ni nada:
+
+	elmanko@Ruth:~/Projects/GitBasics$ git status
+	On branch master
+	nothing to commit, working directory clean
+
+de aqui en adelante ya puedes chambear local, hacer tus cambios, stagearlos, commitearlos y pushearlos al remoto.
+Podemos ver los archivos del repo, los cambios, pero no podemos ver los tags, por alguna razon git no pushea los tags por default, no hay paper, con la siguiente instruccion queda:
+
+	elmanko@Ruth:~/Projects/GitBasics$ git push --tags
+	Counting objects: 1, done.
+	Writing objects: 100% (1/1), 182 bytes | 0 bytes/s, done.
+	Total 1 (delta 0), reused 0 (delta 0)
+
+Ahora si puedes echarle una checada como los commits en github coinciden con el git log local:
+
+	elmanko@Ruth:~/Projects/GitBasics$ git log --oneline
+	e135b61 actualice el .gitignore para que no agregue un nuevo file
+	5030d91 creando README.md
+	a6c8356 deberia jalar ahora si el ignore
+	20f66ab sigue sin jalar el ignore
+	ae220cc calando de nuevo el .gitignore para git.txt
+	3b2d025 agregando el .gitignore para ingorar git.txt
+	dff4502 ultimo commit al git.txt
+	6cf10d1 commit de los cambios a archivo2.txt
+	a5fd22f  viendo si recupero archivo1.txt
+	ac6ebec haciendo mi desmadre con archivos
+	ba63134 pa que no se borre lo importante
+	a87f24a no me habia salido el rename por que no estaba en stage los cambios originalmente, ya jalo
+	3ebd64d agregue otra linea a archivo_nuevo.txt
+	9598eb3  ejemplo de delete y rename de archivos
+	5fcf802 ejemplo de git add
+	33f2dfd le puse un Hola mundo a archivo1.txt
+	2728406 meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
+	aa258c3 nuevos ejemplos de commits y add
+	26d7621 Agregue el git.txt
+
+BRANCHES:
+
+	Hasta el momento estamos jalando en nuestro branch master, vamos a crear una distinta para ver como jala.
+	Revisando el branch local, el historial de logs con la opcion graph(asteriscos):
+
+		elmanko@Ruth:~/Projects/GitBasics$ git log --graph --oneline
+		* e135b61 actualice el .gitignore para que no agregue un nuevo file
+		* 5030d91 creando README.md
+		* a6c8356 deberia jalar ahora si el ignore
+		* 20f66ab sigue sin jalar el ignore
+		* ae220cc calando de nuevo el .gitignore para git.txt
+		* 3b2d025 agregando el .gitignore para ingorar git.txt
+		* dff4502 ultimo commit al git.txt
+		* 6cf10d1 commit de los cambios a archivo2.txt
+		* a5fd22f  viendo si recupero archivo1.txt
+		* ac6ebec haciendo mi desmadre con archivos
+		* ba63134 pa que no se borre lo importante
+		* a87f24a no me habia salido el rename por que no estaba en stage los cambios originalmente, ya jalo
+		* 3ebd64d agregue otra linea a archivo_nuevo.txt
+		* 9598eb3  ejemplo de delete y rename de archivos
+		* 5fcf802 ejemplo de git add
+		* 33f2dfd le puse un Hola mundo a archivo1.txt
+		* 2728406 meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
+		* aa258c3 nuevos ejemplos de commits y add
+		* 26d7621 Agregue el git.txt
+		
+	Tambien hay una opcion mas pro con colorsitos:
+
+		elmanko@Ruth:~/Projects/GitBasics$ git log --graph --oneline --all --decorate
+		* e135b61 (HEAD -> master, tag: v.01, origin/master) actualice el .gitignore para que no agregue un nuevo file
+		* 5030d91 creando README.md
+		* a6c8356 deberia jalar ahora si el ignore
+		* 20f66ab sigue sin jalar el ignore
+		* ae220cc calando de nuevo el .gitignore para git.txt
+		* 3b2d025 agregando el .gitignore para ingorar git.txt
+		* dff4502 ultimo commit al git.txt
+		* 6cf10d1 commit de los cambios a archivo2.txt
+		* a5fd22f  viendo si recupero archivo1.txt
+		* ac6ebec haciendo mi desmadre con archivos
+		* ba63134 pa que no se borre lo importante
+		* a87f24a no me habia salido el rename por que no estaba en stage los cambios originalmente, ya jalo
+		* 3ebd64d agregue otra linea a archivo_nuevo.txt
+		* 9598eb3  ejemplo de delete y rename de archivos
+		* 5fcf802 ejemplo de git add
+		* 33f2dfd le puse un Hola mundo a archivo1.txt
+		* 2728406 meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
+		* aa258c3 nuevos ejemplos de commits y add
+		* 26d7621 Agregue el git.txt
+	
+
+	PEro si es una hueva escribir ese chorizote entonces vamos a crearnos un alias:
+
+		elmanko@Ruth:~/Projects/GitBasics$ git config --global alias.lga "log --graph --oneline --all --decorate"
+	
+	Ya podemos correr el alias como otro comando cualquiera:
+
+		elmanko@Ruth:~/Projects/GitBasics$ git lga
+		* e135b61 (HEAD -> master, tag: v.01, origin/master) actualice el .gitignore para que no agregue un nuevo file
+		* 5030d91 creando README.md
+		* a6c8356 deberia jalar ahora si el ignore
+		* 20f66ab sigue sin jalar el ignore
+		* ae220cc calando de nuevo el .gitignore para git.txt
+		* 3b2d025 agregando el .gitignore para ingorar git.txt
+		* dff4502 ultimo commit al git.txt
+		* 6cf10d1 commit de los cambios a archivo2.txt
+		* a5fd22f  viendo si recupero archivo1.txt
+		* ac6ebec haciendo mi desmadre con archivos
+		* ba63134 pa que no se borre lo importante
+		* a87f24a no me habia salido el rename por que no estaba en stage los cambios originalmente, ya jalo
+		* 3ebd64d agregue otra linea a archivo_nuevo.txt
+		* 9598eb3  ejemplo de delete y rename de archivos
+		* 5fcf802 ejemplo de git add
+		* 33f2dfd le puse un Hola mundo a archivo1.txt
+		* 2728406 meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
+		* aa258c3 nuevos ejemplos de commits y add
+		* 26d7621 Agregue el git.txt
+	
+	El alias lo puedes checar en el .gitconfig o con git config --global --list, tambien puedes directamtne escribirlo en el archivo a mano y debe jalar.
+
+		elmanko@Ruth:~/Projects/GitBasics$ cat ~/.gitconfig 
+		[user]
+			name = elmanko
+			email = elmankisimo@gmail.com
+		[core]
+			editor = vi
+			autocrlf = input
+		[help]
+			autocorrect = 1
+		[color]
+			ui = auto
+		[alias]
+			lga = log --graph --oneline --all --decorate
+
+
+	Ahora si vamo a crear nuestra branch nueva y a cambiar del master, recuerda que las branches son solo como etiquetas a ciertos commits(sha)
+
+		elmanko@Ruth:~/Projects/GitBasics$ git branch
+		* master
+		
+	Hasta ahora nomas estaba master, vamos creando nueva_branch y cambiamos de master a la nueva:
+		
+		elmanko@Ruth:~/Projects/GitBasics$ git branch nueva_branch
+		elmanko@Ruth:~/Projects/GitBasics$ git checkout nueva_branch 
+		Switched to branch 'nueva_branch'
+	
+
+	Verificamos con nuestro alias, checa como el HEAD ya menciona nueva branch:
+
+		elmanko@Ruth:~/Projects/GitBasics$ git lga 
+		* e135b61 (HEAD -> nueva_branch, tag: v.01, origin/master, master) actualice el .gitignore para que no agregue un nuevo file
+		* 5030d91 creando README.md
+		* a6c8356 deberia jalar ahora si el ignore
+		* 20f66ab sigue sin jalar el ignore
+		* ae220cc calando de nuevo el .gitignore para git.txt
+		* 3b2d025 agregando el .gitignore para ingorar git.txt
+		* dff4502 ultimo commit al git.txt
+		* 6cf10d1 commit de los cambios a archivo2.txt
+		* a5fd22f  viendo si recupero archivo1.txt
+		* ac6ebec haciendo mi desmadre con archivos
+		* ba63134 pa que no se borre lo importante
+		* a87f24a no me habia salido el rename por que no estaba en stage los cambios originalmente, ya jalo
+		* 3ebd64d agregue otra linea a archivo_nuevo.txt
+		* 9598eb3  ejemplo de delete y rename de archivos
+		* 5fcf802 ejemplo de git add
+		* 33f2dfd le puse un Hola mundo a archivo1.txt
+		* 2728406 meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
+		* aa258c3 nuevos ejemplos de commits y add
+		* 26d7621 Agregue el git.txt
+	
+	En seguida unas combinaciones de git branch pa
+		elmanko@Ruth:~/Projects/GitBasics$ git branch -v
+		  master       e135b61 actualice el .gitignore para que no agregue un nuevo file
+		* nueva_branch e135b61 actualice el .gitignore para que no agregue un nuevo file
+		elmanko@Ruth:~/Projects/GitBasics$ git branch
+		  master
+		* nueva_branch
+		elmanko@Ruth:~/Projects/GitBasics$ git branch -r
+		  origin/master
+		elmanko@Ruth:~/Projects/GitBasics$ git branch -rv
+		  origin/master e135b61 actualice el .gitignore para que no agregue un nuevo file
+		elmanko@Ruth:~/Projects/GitBasics$ git branch
+		  master
+		* nueva_branch
+
+	Si hacemos algun cambio en los files, y hacemos commit de esos cambios, dichos cambios se van a ver reflejados en la branch en la que estamos:
+
+	Vamos a agregar un linea nueva a README.md:
+
+		elmanko@Ruth:~/Projects/GitBasics$ echo "Otra linea" >> README.md 
+		elmanko@Ruth:~/Projects/GitBasics$ cat README.md 
+		Un Ejercicio para checar los features de Git y Github.
+
+		MNK
+		Otra linea
+
+	Evidentemene git detecta este cambio y lo marca como modified
+		
+		elmanko@Ruth:~/Projects/GitBasics$ git status
+		On branch nueva_branch
+		Changes not staged for commit:
+		  (use "git add <file>..." to update what will be committed)
+		  (use "git checkout -- <file>..." to discard changes in working directory)
+
+			modified:   README.md
+
+		no changes added to commit (use "git add" and/or "git commit -a")
+	
+	HAcemos el add+commit del cambio:
+
+		elmanko@Ruth:~/Projects/GitBasics$ git commit -am "agregue linea a README.md para ejemplo de branches"
+		[nueva_branch 0b10059] agregue linea a README.md para ejemplo de branches
+		 1 file changed, 1 insertion(+)
+	
+	Con nuestro super alias vamos a checar de nuevo el graph del log de commits, nota como ahora el commit que acabo de hacer es en "nueva_branch" y es donde esta HEAD, pero master sigue apuntando al anterior donde hice el tag:
+
+		elmanko@Ruth:~/Projects/GitBasics$ git lga 
+		* 0b10059 (HEAD -> nueva_branch) agregue linea a README.md para ejemplo de branches
+		* e135b61 (tag: v.01, origin/master, master) actualice el .gitignore para que no agregue un nuevo file
+		* 5030d91 creando README.md
+		* a6c8356 deberia jalar ahora si el ignore
+		* 20f66ab sigue sin jalar el ignore
+		* ae220cc calando de nuevo el .gitignore para git.txt
+		* 3b2d025 agregando el .gitignore para ingorar git.txt
+		* dff4502 ultimo commit al git.txt
+		* 6cf10d1 commit de los cambios a archivo2.txt
+		* a5fd22f  viendo si recupero archivo1.txt
+		* ac6ebec haciendo mi desmadre con archivos
+		* ba63134 pa que no se borre lo importante
+		* a87f24a no me habia salido el rename por que no estaba en stage los cambios originalmente, ya jalo
+		* 3ebd64d agregue otra linea a archivo_nuevo.txt
+		* 9598eb3  ejemplo de delete y rename de archivos
+		* 5fcf802 ejemplo de git add
+		* 33f2dfd le puse un Hola mundo a archivo1.txt
+		* 2728406 meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
+		* aa258c3 nuevos ejemplos de commits y add
+		* 26d7621 Agregue el git.txt
+	
+	aca verifico que estoy en la branch: nueva_branch, sin embargo git sabe que existe master tambien, pero marca en un * en la que estamos:
+
+		elmanko@Ruth:~/Projects/GitBasics$ git branch -v
+		  master       e135b61 actualice el .gitignore para que no agregue un nuevo file
+		* nueva_branch 0b10059 agregue linea a README.md para ejemplo de branches
+
+	si saltamos al master, nota como HEAD apunta al commit del tag, no al del cambio en README.md:
+
+		elmanko@Ruth:~/Projects/GitBasics$ git checkout master 
+		Switched to branch 'master'
+		Your branch is up-to-date with 'origin/master'.
+		elmanko@Ruth:~/Projects/GitBasics$ git lga
+		* 0b10059 (nueva_branch) agregue linea a README.md para ejemplo de branches
+		* e135b61 (HEAD -> master, tag: v.01, origin/master) actualice el .gitignore para que no agregue un nuevo file
+		* 5030d91 creando README.md
+		* a6c8356 deberia jalar ahora si el ignore
+		* 20f66ab sigue sin jalar el ignore
+		* ae220cc calando de nuevo el .gitignore para git.txt
+		* 3b2d025 agregando el .gitignore para ingorar git.txt
+		* dff4502 ultimo commit al git.txt
+		* 6cf10d1 commit de los cambios a archivo2.txt
+		* a5fd22f  viendo si recupero archivo1.txt
+		* ac6ebec haciendo mi desmadre con archivos
+		* ba63134 pa que no se borre lo importante
+		* a87f24a no me habia salido el rename por que no estaba en stage los cambios originalmente, ya jalo
+		* 3ebd64d agregue otra linea a archivo_nuevo.txt
+		* 9598eb3  ejemplo de delete y rename de archivos
+		* 5fcf802 ejemplo de git add
+		* 33f2dfd le puse un Hola mundo a archivo1.txt
+		* 2728406 meti un par de archivos nuevos para ejemplificar: archivo1.txt archivo2.txt
+		* aa258c3 nuevos ejemplos de commits y add
+		* 26d7621 Agregue el git.txt
