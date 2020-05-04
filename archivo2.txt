@@ -9,3 +9,4 @@ h
 j
 k
 l
+agregando mas lineas a archivo2.txt
