@@ -219,7 +219,7 @@ BRANCHES:
 		elmanko@Ruth:~/Projects/GitBasics$ cat ~/.gitconfig 
 		[user]
 			name = elmanko
-			email = elmankisimo@gmail.com
+			email = xxxxxxxxxxx@xxxxx.xxx
 		[core]
 			editor = vi
 			autocrlf = input
